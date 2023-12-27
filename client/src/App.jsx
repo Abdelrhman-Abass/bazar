@@ -1,34 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// eslint-disable-next-line no-unused-vars
+import React from 'react'
+import { Home ,Cart } from './pages'
+import { Footer, Header, Product } from './components'
+import { productsData } from './api/Api'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  ScrollRestoration,
+} from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const Layout = ()=>{
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header/>
+      <Outlet/>
+      <Footer/>
     </>
+  )
+}
+
+const Router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children:[
+      {
+        path:'/',
+        element:<Home />,
+        loader:productsData
+
+      },
+      {
+        path:"/product/:id",
+        element:<Product/>
+      },
+      {
+        path:'/cart',
+        element:<Cart />,
+
+      },
+
+    ]
+  }
+])
+
+function App() {
+  return (
+    <div className='font-bodyFont'>
+      <RouterProvider router={Router}/>
+    </div>
   )
 }
 
