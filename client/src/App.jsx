@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import { Home ,Cart } from './pages'
+import { Home ,Cart,Login } from './pages'
 import { Footer, Header, Product } from './components'
 import { productsData } from './api/Api'
 import {
@@ -39,8 +39,11 @@ const Router = createBrowserRouter([
       {
         path:'/cart',
         element:<Cart />,
-
       },
+      {
+        path:'/login',
+        element:<Login/>
+      }
 
     ]
   }

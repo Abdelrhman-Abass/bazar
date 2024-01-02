@@ -1,12 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import {cartImg, githubLogo, logoDark} from '../assets'
+import {cartImg, logoDark} from '../assets'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
 const Header = () => {
   const productData = useSelector((state) =>state.bazar.productData)
+  const userInfo = useSelector((state) => state.bazar.userInfo);
   console.log(productData)
   return (
     <div className='w-full h-20 bg-white border-b-[1px] font-titleFont sticky top-0 z-50 border-b-gray-800'>
@@ -31,7 +32,22 @@ const Header = () => {
               </div>
             
             </Link>
-            <img src={githubLogo} alt="userLogo" className='w-8 h-8 rounded-full' />
+            <Link to='/login'>
+              <img
+                className="w-8 h-8 rounded-full"
+                src={
+                  userInfo
+                    ? userInfo.image
+                    : "https://images.pexels.com/photos/264547/pexels-photo-264547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                }
+                alt="userLogo"
+              />
+            </Link>
+            {userInfo && (
+            <p className="text-base font-titleFont font-semibold underline underline-offset-2">
+              {userInfo.name}
+            </p>
+          )}
         </div>
       </div>
       
